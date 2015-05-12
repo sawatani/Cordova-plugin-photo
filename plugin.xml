@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+    id="org.fathens.cordova.photo" version="0.2.2">
+
+    <name>Photo Plugin</name>
+
+    <description>
+        Cordova Plugin for Photo
+    </description>
+
+    <license>Apache 2.0</license>
+
+    <engines>
+        <engine name="cordova" version=">=3.5.0" />
+    </engines>
+
+    <js-module name="Photo" src="src/photo.js">
+        <clobbers target="plugin.photo" />
+    </js-module>
+</plugin>
