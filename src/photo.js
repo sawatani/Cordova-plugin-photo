@@ -1,13 +1,6 @@
 var FEATURE_NAME = 'Photo'
 
 var taker = function(source, onSuccess, onError) {
-	var options = {
-		correctOrientation: true,
-		mediaType: navigator.camera.MediaType.PICTURE,
-        encodingType: Camera.EncodingType.JPEG,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: source
-	};
 	navigator.camera.getPicture(
 		function(uri) {
 			console.log("Resolving file uri: " + uri);
@@ -18,10 +11,11 @@ var taker = function(source, onSuccess, onError) {
 						function(file) {
 							console.log("Reading file: " + file);
 							var reader = new FileReader();
-							reader.onload = function(event) {
+							reader.onloadend = function(event) {
 								var array = reader.result;
-								console.log("Creating Blob from ArrayBuffer: " + array);
-								var blob = new Blob([array], 'image/jpeg')
+								console.log("Creating Blob from ArrayBuffer: " + array.byteLength + " bytes");
+								var blob = new Blob([array], {type: 'image/jpeg'});
+								console.log("Photo Blob: " + blob.size + " bytes");
 								onSuccess(blob);
 							};
 							reader.onerror = function(event) {
@@ -47,7 +41,13 @@ var taker = function(source, onSuccess, onError) {
 			console.log("Failed to getPicture: " + error);
 			onError(error);
 		},
-		options
+		{
+			correctOrientation: true,
+			mediaType: navigator.camera.MediaType.PICTURE,
+	        encodingType: Camera.EncodingType.JPEG,
+	        destinationType: Camera.DestinationType.FILE_URI,
+	        sourceType: source
+		}
 	);
     console.log('Result: ' + some);
 }
