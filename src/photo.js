@@ -49,7 +49,6 @@ var taker = function(source, onSuccess, onError) {
 	        sourceType: source
 		}
 	);
-    console.log('Result: ' + some);
 }
 
 module.exports = {
